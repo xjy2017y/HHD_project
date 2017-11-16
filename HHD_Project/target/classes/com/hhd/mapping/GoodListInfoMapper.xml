@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.GoodListInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.GoodListInfo">
+    <id column="goodListID" jdbcType="INTEGER" property="goodlistid" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="shopID" jdbcType="INTEGER" property="shopid" />
+    <result column="buildTime" jdbcType="TIMESTAMP" property="buildtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    goodListID, userID, shopID, buildTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goodlistinfo
+    where goodListID = #{goodlistid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goodlistinfo
+    where goodListID = #{goodlistid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.GoodListInfo">
+    insert into goodlistinfo (goodListID, userID, shopID, 
+      buildTime)
+    values (#{goodlistid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{shopid,jdbcType=INTEGER}, 
+      #{buildtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.GoodListInfo">
+    insert into goodlistinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodlistid != null">
+        goodListID,
+      </if>
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="shopid != null">
+        shopID,
+      </if>
+      <if test="buildtime != null">
+        buildTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodlistid != null">
+        #{goodlistid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="buildtime != null">
+        #{buildtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.GoodListInfo">
+    update goodlistinfo
+    <set>
+      <if test="userid != null">
+        userID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null">
+        shopID = #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="buildtime != null">
+        buildTime = #{buildtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goodListID = #{goodlistid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.GoodListInfo">
+    update goodlistinfo
+    set userID = #{userid,jdbcType=INTEGER},
+      shopID = #{shopid,jdbcType=INTEGER},
+      buildTime = #{buildtime,jdbcType=TIMESTAMP}
+    where goodListID = #{goodlistid,jdbcType=INTEGER}
+  </update>
+</mapper>

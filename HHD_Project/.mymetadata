@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="HHD_Project"
+  id="myeclipse.1505527424983"
+  context-root="/HHD_Project"
+  j2ee-spec="5.0"
+  archive="HHD_Project.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.BoughtInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.BoughtInfo">
+    <id column="boughtID" jdbcType="INTEGER" property="boughtid" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="goodListID" jdbcType="INTEGER" property="goodlistid" />
+    <result column="boughtTime" jdbcType="TIMESTAMP" property="boughttime" />
+    <result column="rank" jdbcType="DOUBLE" property="rank" />
+    <result column="evaluate" jdbcType="VARCHAR" property="evaluate" />
+    <result column="shopFeedback" jdbcType="VARCHAR" property="shopfeedback" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    boughtID, userID, goodListID, boughtTime, rank, evaluate, shopFeedback
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from boughtinfo
+    where boughtID = #{boughtid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from boughtinfo
+    where boughtID = #{boughtid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.BoughtInfo">
+    insert into boughtinfo (boughtID, userID, goodListID, 
+      boughtTime, rank, evaluate, 
+      shopFeedback)
+    values (#{boughtid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{goodlistid,jdbcType=INTEGER}, 
+      #{boughttime,jdbcType=TIMESTAMP}, #{rank,jdbcType=DOUBLE}, #{evaluate,jdbcType=VARCHAR}, 
+      #{shopfeedback,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.BoughtInfo">
+    insert into boughtinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="boughtid != null">
+        boughtID,
+      </if>
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="goodlistid != null">
+        goodListID,
+      </if>
+      <if test="boughttime != null">
+        boughtTime,
+      </if>
+      <if test="rank != null">
+        rank,
+      </if>
+      <if test="evaluate != null">
+        evaluate,
+      </if>
+      <if test="shopfeedback != null">
+        shopFeedback,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="boughtid != null">
+        #{boughtid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="goodlistid != null">
+        #{goodlistid,jdbcType=INTEGER},
+      </if>
+      <if test="boughttime != null">
+        #{boughttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=DOUBLE},
+      </if>
+      <if test="evaluate != null">
+        #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="shopfeedback != null">
+        #{shopfeedback,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.BoughtInfo">
+    update boughtinfo
+    <set>
+      <if test="userid != null">
+        userID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="goodlistid != null">
+        goodListID = #{goodlistid,jdbcType=INTEGER},
+      </if>
+      <if test="boughttime != null">
+        boughtTime = #{boughttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rank != null">
+        rank = #{rank,jdbcType=DOUBLE},
+      </if>
+      <if test="evaluate != null">
+        evaluate = #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="shopfeedback != null">
+        shopFeedback = #{shopfeedback,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where boughtID = #{boughtid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.BoughtInfo">
+    update boughtinfo
+    set userID = #{userid,jdbcType=INTEGER},
+      goodListID = #{goodlistid,jdbcType=INTEGER},
+      boughtTime = #{boughttime,jdbcType=TIMESTAMP},
+      rank = #{rank,jdbcType=DOUBLE},
+      evaluate = #{evaluate,jdbcType=VARCHAR},
+      shopFeedback = #{shopfeedback,jdbcType=VARCHAR}
+    where boughtID = #{boughtid,jdbcType=INTEGER}
+  </update>
+</mapper>

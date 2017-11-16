@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.TestInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.TestInfo">
+    <id column="testID" jdbcType="INTEGER" property="testid" />
+    <result column="linkedID" jdbcType="INTEGER" property="linkedid" />
+    <result column="testTyrePress" jdbcType="DOUBLE" property="testtyrepress" />
+    <result column="testTem" jdbcType="DOUBLE" property="testtem" />
+    <result column="testTime" jdbcType="TIMESTAMP" property="testtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    testID, linkedID, testTyrePress, testTem, testTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from testinfo
+    where testID = #{testid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByLinkedID" resultMap="BaseResultMap">
+  select
+   <include refid="Base_Column_List" />
+   from testinfo
+   where linkedID = #{linkedID} order by testTime desc limit #{page},#{pageSize} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from testinfo
+    where testID = #{testid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.TestInfo">
+    insert into testinfo (testID, linkedID, testTyrePress, 
+      testTem, testTime)
+    values (#{testid,jdbcType=INTEGER}, #{linkedid,jdbcType=INTEGER}, #{testtyrepress,jdbcType=DOUBLE}, 
+      #{testtem,jdbcType=DOUBLE}, #{testtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.TestInfo">
+    insert into testinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="testid != null">
+        testID,
+      </if>
+      <if test="linkedid != null">
+        linkedID,
+      </if>
+      <if test="testtyrepress != null">
+        testTyrePress,
+      </if>
+      <if test="testtem != null">
+        testTem,
+      </if>
+      <if test="testtime != null">
+        testTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="testid != null">
+        #{testid,jdbcType=INTEGER},
+      </if>
+      <if test="linkedid != null">
+        #{linkedid,jdbcType=INTEGER},
+      </if>
+      <if test="testtyrepress != null">
+        #{testtyrepress,jdbcType=DOUBLE},
+      </if>
+      <if test="testtem != null">
+        #{testtem,jdbcType=DOUBLE},
+      </if>
+      <if test="testtime != null">
+        #{testtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.TestInfo">
+    update testinfo
+    <set>
+      <if test="linkedid != null">
+        linkedID = #{linkedid,jdbcType=INTEGER},
+      </if>
+      <if test="testtyrepress != null">
+        testTyrePress = #{testtyrepress,jdbcType=DOUBLE},
+      </if>
+      <if test="testtem != null">
+        testTem = #{testtem,jdbcType=DOUBLE},
+      </if>
+      <if test="testtime != null">
+        testTime = #{testtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where testID = #{testid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.TestInfo">
+    update testinfo
+    set linkedID = #{linkedid,jdbcType=INTEGER},
+      testTyrePress = #{testtyrepress,jdbcType=DOUBLE},
+      testTem = #{testtem,jdbcType=DOUBLE},
+      testTime = #{testtime,jdbcType=TIMESTAMP}
+    where testID = #{testid,jdbcType=INTEGER}
+  </update>
+</mapper>

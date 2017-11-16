@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.DiscountInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.DiscountInfo">
+    <result column="discountID" jdbcType="INTEGER" property="discountid" />
+    <result column="shopID" jdbcType="INTEGER" property="shopid" />
+    <result column="serviceID" jdbcType="INTEGER" property="serviceid" />
+    <result column="information" jdbcType="VARCHAR" property="information" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endtime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.hhd.pojo.DiscountInfo">
+    insert into discountinfo (discountID, shopID, serviceID, 
+      information, startTime, endTime
+      )
+    values (#{discountid,jdbcType=INTEGER}, #{shopid,jdbcType=INTEGER}, #{serviceid,jdbcType=INTEGER}, 
+      #{information,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.DiscountInfo">
+    insert into discountinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="discountid != null">
+        discountID,
+      </if>
+      <if test="shopid != null">
+        shopID,
+      </if>
+      <if test="serviceid != null">
+        serviceID,
+      </if>
+      <if test="information != null">
+        information,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="discountid != null">
+        #{discountid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="serviceid != null">
+        #{serviceid,jdbcType=INTEGER},
+      </if>
+      <if test="information != null">
+        #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
