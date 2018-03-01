@@ -18,4 +18,6 @@ public interface ShopPicMapper {
     int updateByPrimaryKey(ShopPic record);
     
     int insertAll(List<ShopPic> records);
+
+	List<String> selectByShopID(Integer shopid);
 }

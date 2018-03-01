@@ -9,4 +9,10 @@ public interface IShopService {
 
 	JSONObject checkShop(int page, int pageSize, int superiorID);
 
+	JSONObject queryAllShop(int page, int pageSize);
+
+	JSONObject queryAllShop();
+
+	JSONObject queryShopByInfo(String describe);
+
 }

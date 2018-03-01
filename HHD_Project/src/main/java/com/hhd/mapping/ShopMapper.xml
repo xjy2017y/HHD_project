@@ -20,6 +20,16 @@
 		phone,
 		shopState,shopCheckState
 	</sql>
+	<select id="queryByInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from shop where describeInfo like #{describe}
+	</select>
+	
+	<select id="queryAllShop" resultMap="BaseResultMap">
+		select * from shop
+	</select>
+	<select id="queryAllShopLimit" resultMap="BaseResultMap">
+		select * from shop limit #{page},#{pageSize}
+	</select>
 	<select id="queryShopBysuperiorIDAndState" resultMap="BaseResultMap">
 		select
 		sh.*
@@ -44,6 +54,9 @@
 		where shopID = #{shopid,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.hhd.pojo.Shop">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="shopid">
+          SELECT LAST_INSERT_ID()
+      	</selectKey>
 		insert into shop (shopID,
 		userID, grade,
 		serviceItem, address, viewCount,

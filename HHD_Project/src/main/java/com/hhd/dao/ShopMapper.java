@@ -23,4 +23,10 @@ public interface ShopMapper {
 
 	List<Shop> queryShopBysuperiorIDAndState(@Param("page")int page, @Param("pageSize")int pageSize,
 			@Param("superiorID")int superiorID, @Param("state")int state);
+
+	List<Shop> queryAllShopLimit(@Param("page")int page, @Param("pageSize")int pageSize);
+
+	List<Shop> queryAllShop();
+
+	List<Shop> queryByInfo(String describe);
 }

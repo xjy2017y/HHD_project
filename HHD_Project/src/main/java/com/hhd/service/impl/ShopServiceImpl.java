@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,16 +28,16 @@ public class ShopServiceImpl implements IShopService{
 	public JSONObject saveShopInfo(Shop info) {
 		// TODO Auto-generated method stub
 		List<ShopPic> pic = new ArrayList<ShopPic>();
-		ShopPic temp = new ShopPic();
-		temp.setShopid(info.getShopid());
+		int resultInt2 = shopMapper.insert(info);		//插入
 		for(int i = 0;i < info.getPictureAddress().size();i++){
+			ShopPic temp = new ShopPic();
 			temp.setPictureaddress(info.getPictureAddress().get(i));
+			temp.setShopid(info.getShopid());
 			pic.add(temp);
 		}
 		int resultInt = picMapper.insertAll(pic);
-		int resultInt2 = shopMapper.insert(info);
 		JSONObject result = new JSONObject();
-		if(resultInt == 1 && resultInt2 == 1){
+		if(resultInt >= 1 && resultInt2 == 1){
 			result.put("result", null);
 			result.put("status", 1);
 		}else{
@@ -61,4 +62,85 @@ public class ShopServiceImpl implements IShopService{
 		return result;
 	}
 
+	public JSONObject queryAllShop(int page, int pageSize) {
+		// TODO Auto-generated method stub
+		JSONObject result = new JSONObject();
+		try{
+			List<Shop> shopInfo = shopMapper.queryAllShopLimit((page-1)*pageSize,pageSize);
+			if(shopInfo.size() > 0){
+				for(int i = 0;i<shopInfo.size();i++){
+					List<String> shopPic = picMapper.selectByShopID(shopInfo.get(i).getShopid());
+					shopInfo.get(i).setPictureAddress(shopPic);
+				}
+				result.put("status", 1);
+				result.put("result", shopInfo);
+			}else{
+				result.put("status", 1);
+				result.put("result", null);
+			}
+			return result;
+		}catch(RuntimeException e){
+			Logger logger = Logger.getLogger(ShopServiceImpl.class);
+			logger.error("queryAllShop 查询错误！");
+			logger.error("错误原因："+e.toString());
+			result.put("result", null);
+			result.put("status", 0);
+			return result;
+		}
+	}
+
+	public JSONObject queryAllShop() {
+		// TODO Auto-generated method stub
+		JSONObject result = new JSONObject();
+		try{
+			List<Shop> shopInfo = shopMapper.queryAllShop();
+			if(shopInfo.size() > 0){
+				for(int i = 0;i<shopInfo.size();i++){
+					List<String> shopPic = picMapper.selectByShopID(shopInfo.get(i).getShopid());
+					shopInfo.get(i).setPictureAddress(shopPic);
+				}
+				result.put("status", 1);
+				result.put("result", shopInfo);
+			}else{
+				result.put("status", 1);
+				result.put("result", null);
+			}
+			return result;
+		}catch(RuntimeException e){
+			Logger logger = Logger.getLogger(ShopServiceImpl.class);
+			logger.error("queryAllShop 查询错误！");
+			logger.error("错误原因："+e.toString());
+			result.put("result", null);
+			result.put("status", 0);
+			return result;
+		}
+	}
+
+	public JSONObject queryShopByInfo(String valueOf) {
+		// TODO Auto-generated method stub
+		JSONObject result = new JSONObject();
+		try{
+			valueOf = "%"+valueOf+"%";
+			List<Shop> shopInfo = shopMapper.queryByInfo(valueOf);
+			if(shopInfo.size() > 0){
+				for(int i = 0;i<shopInfo.size();i++){
+					List<String> shopPic = picMapper.selectByShopID(shopInfo.get(i).getShopid());
+					shopInfo.get(i).setPictureAddress(shopPic);
+				}
+				result.put("status", 1);
+				result.put("result", shopInfo);
+			}else{
+				result.put("status", 1);
+				result.put("result", null);
+			}
+			return result;
+		}catch(RuntimeException e){
+			Logger logger = Logger.getLogger(ShopServiceImpl.class);
+			logger.error("queryShopByInfo 查询错误！");
+			logger.error("错误原因："+e.toString());
+			result.put("result", null);
+			result.put("status", 0);
+			return result;
+		}
+	}
 }

@@ -29,6 +29,7 @@ public class CarInfoServiceImpl implements ICarInfoService {
 		}catch(RuntimeException e){
 			Logger logger = Logger.getLogger(CarInfoServiceImpl.class);
 			logger.error("queryCarInfoByLatter 搜索错误！");
+			logger.error("错误原因："+e.toString());
 			result.put("result", null);
 			result.put("status", 0);
 			return result;

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +44,9 @@ public class CarInfoController {
 	public void querySeriesByBrand(HttpServletRequest request,HttpServletResponse response){
 		Tools.ip2log(request);
 		String brand = request.getParameter("brand");
-		//brand = Tools.transcoding(brand);
+		brand = Tools.transcoding(brand);
+		Logger log = Logger.getLogger(CarInfoController.class);
+		log.info("brand is:"+ brand);
 		System.out.println(brand);
 		JSONObject result = service.querySeriesByBrand(brand);
 		Tools.writerToAndroid(response, result);

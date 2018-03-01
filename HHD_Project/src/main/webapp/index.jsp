@@ -22,11 +22,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     This is my JSP page. <br>
-    <img alt="ddd" src="upload/shopPic/2017/10/24/4jBzcKLWk6temp.jpg">
+    <img alt="ddd" src="/shopPic/2018/01/04/3mDHnRExV8temp.jpg">
     <form id="fileupload" action="/HHD_Project/shop/upload" method="POST" enctype="multipart/form-data">  
         <!-- Redirect browsers with JavaScript disabled to the origin page -->  
         <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>  
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->  
+        <input  name="shopInfo" type="text">
         <div class="row fileupload-buttonbar">  
             <div class="col-lg-7">  
                 <!-- The fileinput-button span is used to style the file input field as button -->  

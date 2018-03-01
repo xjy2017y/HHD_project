@@ -9,6 +9,9 @@
   <sql id="Base_Column_List">
     pictureID, shopID, pictureAddress
   </sql>
+  <select id="selectByShopID" parameterType="java.lang.Integer" resultType="java.lang.String">
+  	select pictureAddress from shoppic where shopID = #{shopid}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -30,7 +33,7 @@
   	insert into shoppic (shopID,pictureAddress)
   	 values
   <foreach collection="list" item="item" index="index" separator="," >  
-        (#{item.shopid},#{item.pictureAddress})  
+        (#{item.shopid},#{item.pictureaddress})  
     </foreach>  
   </insert>
   

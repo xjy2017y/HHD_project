@@ -37,7 +37,7 @@ public class TyreInfoController {
 	public void queryStreakByBrand(HttpServletRequest request,HttpServletResponse response){
 		Tools.ip2log(request);
 		String brand = request.getParameter("brand");
-		//brand = Tools.transcoding(brand);
+		brand = Tools.transcoding(brand);
 		JSONObject result = serivce.queryStreakByBrand(brand);
 		Tools.writerToAndroid(response, result);
 	}
@@ -62,7 +62,7 @@ public class TyreInfoController {
 	public void queryTyreInfoByName(HttpServletRequest request,HttpServletResponse response){
 		Tools.ip2log(request);
 		String name = request.getParameter("name");
-		//name = Tools.transcoding(name);
+		name = Tools.transcoding(name);
 		JSONObject result =serivce.queryTyreInfoByName(name);
 		Tools.writerToAndroid(response, result);
 	}

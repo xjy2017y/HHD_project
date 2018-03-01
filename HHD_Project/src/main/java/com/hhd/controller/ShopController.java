@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,17 +55,20 @@ public class ShopController {
 				.getRealPath("upload");
 		MultipartFile multipartFile = null;
 		String json = request.getParameter("shopInfo");
-		json = Tools.transcoding(json);
-		Shop info = JSONObject.parseArray(json, Shop.class).get(0);
+		//json = Tools.transcoding(json);
+		Shop info = JSONObject.parseObject(json, Shop.class);
+		info.setPictureAddress(new ArrayList());
 		for (int i = 0; i < uploadFile.length; i++) {
 			multipartFile = uploadFile[i];
 			// 文件新路径
 			String filePath =  Tools.getFilePath(
 					multipartFile.getOriginalFilename(), REPOSITORY_PATH);
+			System.out.println(filePath);
 			// 生成图片的绝对引用地址
 			String picUrl = StringUtils.replace(
 					StringUtils.substringAfter(filePath, REPOSITORY_PATH),
 					"\\", "/");
+			System.out.println(picUrl);
 			File newFile = new File(filePath);
 			// 写文件到磁盘
 			try {
@@ -80,7 +85,7 @@ public class ShopController {
 	            if(isLegal == false){
 	            	newFile.delete();
 	            }else{
-	            	info.getPictureAddress().add(picUrl);
+	            	info.getPictureAddress().add(picUrl);				//加入到picUrl
 	            }
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -106,6 +111,33 @@ public class ShopController {
 		int pageSize = Integer.valueOf(request.getParameter("pageSize"));
 		int superiorID = Integer.valueOf(request.getParameter("superiorID"));
 		JSONObject result = shopService.checkShop(page,pageSize,superiorID);
+		Tools.writerToAndroid(response, result);
+	}
+	
+	
+	@RequestMapping("/queryAllShop")
+	public void queryAllShop(HttpServletRequest request,HttpServletResponse response){
+		Tools.ip2log(request);					//将访问者IP写入log 
+		String page = request.getParameter("page");
+		String pageSize = request.getParameter("pageSize");
+		JSONObject result;
+		if(page==null || pageSize == null){
+			 result = shopService.queryAllShop();
+		}else{
+			int page1 = Integer.valueOf(page);
+			int pageSize1 = Integer.valueOf(pageSize);
+			 result = shopService.queryAllShop(page1,pageSize1);
+		}
+		Tools.writerToAndroid(response, result);
+	}
+	@RequestMapping("/queryShopByDesInfo")
+	public void queryShopByDesInfo(HttpServletRequest request,HttpServletResponse response){
+		Tools.ip2log(request);					//将访问者IP写入log 
+		String describe = request.getParameter("describe");
+		describe = Tools.transcoding(describe);
+		Logger log = Logger.getLogger(ShopController.class);
+		log.info("descirbe is:"+ describe);
+		JSONObject result = shopService.queryShopByInfo(describe);
 		Tools.writerToAndroid(response, result);
 	}
 }
