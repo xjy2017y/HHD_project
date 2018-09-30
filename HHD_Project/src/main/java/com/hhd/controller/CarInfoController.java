@@ -22,6 +22,8 @@ public class CarInfoController {
 	@Resource
 	ICarInfoService service;
 	
+	
+	
 	/**
 	 * 通过首字母来搜索brand
 	 * @param request
@@ -34,6 +36,9 @@ public class CarInfoController {
 		JSONObject result = service.queryCarInfoByLatter(first_latter);
 		Tools.writerToAndroid(response, result);
 	}
+	
+	
+	
 	
 	/**
 	 * 通过brand来搜索series 输出是乱码，要在android端测试

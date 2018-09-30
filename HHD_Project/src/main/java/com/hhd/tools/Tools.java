@@ -150,8 +150,14 @@ public class Tools {
     	}else{
     		northOrSourth = "南纬";
     	}
-    	double altitude = calculDecimal(numb,22,23) / 10.0;
-    	double speed = calculDecimal(numb,24,25) /1000.0;
+    	double altitude;
+    	if((series[22] & 0x80) == 0x80){			//负数
+    		int i = series[22] & 0x7F;
+    		altitude = -((i*256 + numb[23])/10.0);
+    	}else{
+    		altitude = calculDecimal(numb, 22, 23)/10.0;
+    	}
+    	double speed = calculDecimal(numb,24,27) /1000.0;
     	info.setRecordTime(new Date(System.currentTimeMillis()));
     	info.setSpeed(String.valueOf(speed));
     	info.setAltitude(String.valueOf(altitude));

@@ -4,7 +4,10 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +28,7 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.selectByPrimaryKey(userId);
 		
 	}
-	public JSONObject register(UserInfo userInfo) {
+	public JSONObject register(UserInfo userInfo,HttpServletRequest req) {
 		// TODO Auto-generated method stub
 		JSONObject result = new JSONObject();
 		UserInfo record = userMapper.selectByAssPhone(userInfo.getAssphone());
@@ -39,6 +42,8 @@ public class UserServiceImpl implements IUserService {
 				result.put("result", null);
 				return result;
 			}
+			HttpSession session = req.getSession();
+			session.setAttribute("username", userInfo.getAssphone());
 			JSONObject id = new JSONObject();
 			id.put("userid", resultInt);
 			result.put("status", 1);
@@ -82,7 +87,7 @@ public class UserServiceImpl implements IUserService {
 		}
 		return result;
 	}
-	public JSONObject login(String assPhone) {
+	public JSONObject login(String assPhone,HttpServletRequest req) {
 		// TODO Auto-generated method stub
 		UserInfo userInfo = userMapper.selectByAssPhone(assPhone);
 		JSONObject result = new JSONObject();
@@ -101,6 +106,8 @@ public class UserServiceImpl implements IUserService {
 			userInfo.setLastlogintime(new Timestamp(System.currentTimeMillis()));		//修改上次登录时间
 			userMapper.updateByPrimaryKeySelective(userInfo);
 			JSONObject userJson = (JSONObject) JSONObject.toJSON(userInfo);
+			HttpSession sesstion = req.getSession();
+			sesstion.setAttribute("username",assPhone);
 			result.put("status", 1);			//user不存在
 			result.put("result", userJson);
 		}else{
