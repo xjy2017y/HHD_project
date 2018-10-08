@@ -1,4 +1,4 @@
-package com.hhd.interceptor;
+﻿package com.hhd.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +32,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		// TODO Auto-generated method stub
-		String url = request.getRequestURI();  
+		return true;
+		/*String url = request.getRequestURI();  
         //URL:login.jsp是公开的;这个demo是除了login.jsp是可以公开访问的，其它的URL都进行拦截控制  
         if(url.indexOf("user/login")>=0 || url.indexOf("user/register")>=0){  
             return true;  
@@ -48,6 +49,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         result.put("status", -1);
         result.put("result", "unlogin");
         Tools.writerToAndroid(response, result);
-        return false;  
+        return false;  */
 	}
 }
