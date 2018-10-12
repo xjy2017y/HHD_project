@@ -28,6 +28,7 @@ public class ShopServiceImpl implements IShopService{
 	public JSONObject saveShopInfo(Shop info) {
 		// TODO Auto-generated method stub
 		List<ShopPic> pic = new ArrayList<ShopPic>();
+		System.out.println(info.getAddress());
 		int resultInt2 = shopMapper.insert(info);		//插入
 		for(int i = 0;i < info.getPictureAddress().size();i++){
 			ShopPic temp = new ShopPic();

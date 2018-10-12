@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.hhd.pojo.UserInfo;
 import com.hhd.service.IUserService;
 import com.hhd.tools.Tools;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/user")
@@ -24,6 +25,20 @@ public class UserController {
 		String  assPhone = request.getParameter("assPhone");
 		JSONObject result = userService.login(assPhone,request);
 		Tools.writerToAndroid(response, result);
+	}
+
+	@ResponseBody
+	@RequestMapping("/unlogin")
+	public Object unlogin(HttpServletResponse response,HttpServletRequest request){
+		Tools.ip2log(request);
+		HttpSession session = request.getSession();
+		System.out.println(session.getId());
+		session.removeAttribute("username");
+		JSONObject result = new JSONObject();
+		System.out.println(1111);
+		result.put("status",1);
+		result.put("result","success unlogin");
+		return result;
 	}
 	@RequestMapping("/register")
 	public void register(HttpServletResponse response,HttpServletRequest request){

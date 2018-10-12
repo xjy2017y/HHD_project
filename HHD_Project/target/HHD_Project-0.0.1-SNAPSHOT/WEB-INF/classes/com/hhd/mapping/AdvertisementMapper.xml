@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.AdvertisementMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.Advertisement">
+    <id column="adID" jdbcType="INTEGER" property="adid" />
+    <result column="imagePath" jdbcType="VARCHAR" property="imagepath" />
+    <result column="discrible" jdbcType="VARCHAR" property="discrible" />
+    <result column="linkPath" jdbcType="VARCHAR" property="linkpath" />
+    <result column="shopID" jdbcType="INTEGER" property="shopid" />
+    <result column="hitCount" jdbcType="INTEGER" property="hitcount" />
+    <result column="startDate" jdbcType="TIMESTAMP" property="startdate" />
+    <result column="endDate" jdbcType="TIMESTAMP" property="enddate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    adID, imagePath, discrible, linkPath, shopID, hitCount, startDate, endDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from advertisements
+    where adID = #{adid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from advertisements
+    where adID = #{adid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.Advertisement">
+    insert into advertisements (adID, imagePath, discrible, 
+      linkPath, shopID, hitCount, 
+      startDate, endDate)
+    values (#{adid,jdbcType=INTEGER}, #{imagepath,jdbcType=VARCHAR}, #{discrible,jdbcType=VARCHAR}, 
+      #{linkpath,jdbcType=VARCHAR}, #{shopid,jdbcType=INTEGER}, #{hitcount,jdbcType=INTEGER}, 
+      #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.Advertisement">
+    insert into advertisements
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adid != null">
+        adID,
+      </if>
+      <if test="imagepath != null">
+        imagePath,
+      </if>
+      <if test="discrible != null">
+        discrible,
+      </if>
+      <if test="linkpath != null">
+        linkPath,
+      </if>
+      <if test="shopid != null">
+        shopID,
+      </if>
+      <if test="hitcount != null">
+        hitCount,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adid != null">
+        #{adid,jdbcType=INTEGER},
+      </if>
+      <if test="imagepath != null">
+        #{imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="discrible != null">
+        #{discrible,jdbcType=VARCHAR},
+      </if>
+      <if test="linkpath != null">
+        #{linkpath,jdbcType=VARCHAR},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="hitcount != null">
+        #{hitcount,jdbcType=INTEGER},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.Advertisement">
+    update advertisements
+    <set>
+      <if test="imagepath != null">
+        imagePath = #{imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="discrible != null">
+        discrible = #{discrible,jdbcType=VARCHAR},
+      </if>
+      <if test="linkpath != null">
+        linkPath = #{linkpath,jdbcType=VARCHAR},
+      </if>
+      <if test="shopid != null">
+        shopID = #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="hitcount != null">
+        hitCount = #{hitcount,jdbcType=INTEGER},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where adID = #{adid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.Advertisement">
+    update advertisements
+    set imagePath = #{imagepath,jdbcType=VARCHAR},
+      discrible = #{discrible,jdbcType=VARCHAR},
+      linkPath = #{linkpath,jdbcType=VARCHAR},
+      shopID = #{shopid,jdbcType=INTEGER},
+      hitCount = #{hitcount,jdbcType=INTEGER},
+      startDate = #{startdate,jdbcType=TIMESTAMP},
+      endDate = #{enddate,jdbcType=TIMESTAMP}
+    where adID = #{adid,jdbcType=INTEGER}
+  </update>
+</mapper>

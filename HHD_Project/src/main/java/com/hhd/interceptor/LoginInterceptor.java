@@ -1,5 +1,6 @@
-﻿package com.hhd.interceptor;
+package com.hhd.interceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.hhd.tools.Tools;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-	
+
+	public String passUrl="register;login.jsp;page2.jsp;login;.css;.png;.jpg;.gif;.js;.html;.ico;.ttf;.woff2;.woff";
+
 	@Override
 	public void afterCompletion(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex)
@@ -32,14 +35,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		// TODO Auto-generated method stub
-		return true;
-		/*String url = request.getRequestURI();  
+		String[] passStrArray = passUrl.split(";");
+		for (String passStr : passStrArray) {
+			if (request.getRequestURI().indexOf(passStr) >= 0) {
+				return true;
+			}
+		}
         //URL:login.jsp是公开的;这个demo是除了login.jsp是可以公开访问的，其它的URL都进行拦截控制  
-        if(url.indexOf("user/login")>=0 || url.indexOf("user/register")>=0){  
-            return true;  
-        }  
+//        if(url.indexOf("user/login")>=0 || url.indexOf("user/register")>=0){
+//            return true;
+//        }
         //获取Session  
-        HttpSession session = request.getSession();  
+        HttpSession session = request.getSession();
+		System.out.println(session);
         String username = (String)session.getAttribute("username");  
         if(username != null){  
             return true;  
@@ -49,6 +57,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         result.put("status", -1);
         result.put("result", "unlogin");
         Tools.writerToAndroid(response, result);
-        return false;  */
+        return false;
 	}
 }

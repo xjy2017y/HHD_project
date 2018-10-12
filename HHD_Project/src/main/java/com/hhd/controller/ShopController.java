@@ -55,6 +55,7 @@ public class ShopController {
 				.getRealPath("upload");
 		MultipartFile multipartFile = null;
 		String json = request.getParameter("shopInfo");
+		System.out.println(json);
 		//json = Tools.transcoding(json);
 		Shop info = JSONObject.parseObject(json, Shop.class);
 		info.setPictureAddress(new ArrayList());

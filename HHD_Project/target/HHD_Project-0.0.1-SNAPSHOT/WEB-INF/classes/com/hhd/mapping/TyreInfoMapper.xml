@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.TyreInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.TyreInfo">
+    <id column="tyreID" jdbcType="INTEGER" property="tyreid" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="streak" jdbcType="VARCHAR" property="streak" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="standard" jdbcType="VARCHAR" property="standard" />
+    <result column="loaded" jdbcType="VARCHAR" property="loaded" />
+    <result column="speed" jdbcType="VARCHAR" property="speed" />
+    <result column="wearproof" jdbcType="VARCHAR" property="wearproof" />
+    <result column="traction" jdbcType="VARCHAR" property="traction" />
+    <result column="highTemperature" jdbcType="VARCHAR" property="hightemperature" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tyreID, brand, streak, name, standard, loaded, speed, wearproof, traction, highTemperature
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tyreinfo
+    where tyreID = #{tyreid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectTyreInfoByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select 
+   <include refid="Base_Column_List" />
+   from tyreinfo
+   where name like #{name}
+  </select>
+  <select id="selectBrand" resultType="java.lang.String">
+  	select brand from tyreinfo group by brand
+  </select>
+	<select id="selectStreakByBrand" resultType="java.lang.String" parameterType="java.lang.String">
+	select streak from tyreinfo where brand = #{brand} group by streak
+	</select>
+	<select id="selectTyreInfoByStreak" parameterType="java.lang.String" resultMap="BaseResultMap">
+	select
+	<include refid="Base_Column_List"></include>
+	from tyreinfo
+	where streak = #{streak}
+	</select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tyreinfo
+    where tyreID = #{tyreid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.TyreInfo">
+    insert into tyreinfo (tyreID, brand, streak, 
+      name, standard, loaded, 
+      speed, wearproof, traction, 
+      highTemperature)
+    values (#{tyreid,jdbcType=INTEGER}, #{brand,jdbcType=VARCHAR}, #{streak,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR}, #{loaded,jdbcType=VARCHAR}, 
+      #{speed,jdbcType=VARCHAR}, #{wearproof,jdbcType=VARCHAR}, #{traction,jdbcType=VARCHAR}, 
+      #{hightemperature,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.TyreInfo">
+    insert into tyreinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tyreid != null">
+        tyreID,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="streak != null">
+        streak,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="standard != null">
+        standard,
+      </if>
+      <if test="loaded != null">
+        loaded,
+      </if>
+      <if test="speed != null">
+        speed,
+      </if>
+      <if test="wearproof != null">
+        wearproof,
+      </if>
+      <if test="traction != null">
+        traction,
+      </if>
+      <if test="hightemperature != null">
+        highTemperature,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tyreid != null">
+        #{tyreid,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="streak != null">
+        #{streak,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null">
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="loaded != null">
+        #{loaded,jdbcType=VARCHAR},
+      </if>
+      <if test="speed != null">
+        #{speed,jdbcType=VARCHAR},
+      </if>
+      <if test="wearproof != null">
+        #{wearproof,jdbcType=VARCHAR},
+      </if>
+      <if test="traction != null">
+        #{traction,jdbcType=VARCHAR},
+      </if>
+      <if test="hightemperature != null">
+        #{hightemperature,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.TyreInfo">
+    update tyreinfo
+    <set>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="streak != null">
+        streak = #{streak,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null">
+        standard = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="loaded != null">
+        loaded = #{loaded,jdbcType=VARCHAR},
+      </if>
+      <if test="speed != null">
+        speed = #{speed,jdbcType=VARCHAR},
+      </if>
+      <if test="wearproof != null">
+        wearproof = #{wearproof,jdbcType=VARCHAR},
+      </if>
+      <if test="traction != null">
+        traction = #{traction,jdbcType=VARCHAR},
+      </if>
+      <if test="hightemperature != null">
+        highTemperature = #{hightemperature,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tyreID = #{tyreid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.TyreInfo">
+    update tyreinfo
+    set brand = #{brand,jdbcType=VARCHAR},
+      streak = #{streak,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      standard = #{standard,jdbcType=VARCHAR},
+      loaded = #{loaded,jdbcType=VARCHAR},
+      speed = #{speed,jdbcType=VARCHAR},
+      wearproof = #{wearproof,jdbcType=VARCHAR},
+      traction = #{traction,jdbcType=VARCHAR},
+      highTemperature = #{hightemperature,jdbcType=VARCHAR}
+    where tyreID = #{tyreid,jdbcType=INTEGER}
+  </update>
+</mapper>

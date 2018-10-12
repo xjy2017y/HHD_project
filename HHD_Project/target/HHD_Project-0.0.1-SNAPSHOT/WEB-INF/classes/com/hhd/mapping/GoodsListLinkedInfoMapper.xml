@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.GoodsListLinkedInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.GoodsListLinkedInfo">
+    <id column="listID" jdbcType="INTEGER" property="listid" />
+    <result column="billID" jdbcType="INTEGER" property="billid" />
+    <result column="goodListID" jdbcType="INTEGER" property="goodlistid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    listID, billID, goodListID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goodslistlinkedinfo
+    where listID = #{listid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goodslistlinkedinfo
+    where listID = #{listid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.GoodsListLinkedInfo">
+    insert into goodslistlinkedinfo (listID, billID, goodListID
+      )
+    values (#{listid,jdbcType=INTEGER}, #{billid,jdbcType=INTEGER}, #{goodlistid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.GoodsListLinkedInfo">
+    insert into goodslistlinkedinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="listid != null">
+        listID,
+      </if>
+      <if test="billid != null">
+        billID,
+      </if>
+      <if test="goodlistid != null">
+        goodListID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="listid != null">
+        #{listid,jdbcType=INTEGER},
+      </if>
+      <if test="billid != null">
+        #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="goodlistid != null">
+        #{goodlistid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.GoodsListLinkedInfo">
+    update goodslistlinkedinfo
+    <set>
+      <if test="billid != null">
+        billID = #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="goodlistid != null">
+        goodListID = #{goodlistid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where listID = #{listid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.GoodsListLinkedInfo">
+    update goodslistlinkedinfo
+    set billID = #{billid,jdbcType=INTEGER},
+      goodListID = #{goodlistid,jdbcType=INTEGER}
+    where listID = #{listid,jdbcType=INTEGER}
+  </update>
+</mapper>

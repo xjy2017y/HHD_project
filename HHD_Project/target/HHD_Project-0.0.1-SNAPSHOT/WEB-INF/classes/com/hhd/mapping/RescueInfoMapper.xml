@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.RescueInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.RescueInfo">
+    <id column="rescueID" jdbcType="INTEGER" property="rescueid" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="shopID" jdbcType="INTEGER" property="shopid" />
+    <result column="orderID" jdbcType="INTEGER" property="orderid" />
+    <result column="problemDespribe" jdbcType="VARCHAR" property="problemdespribe" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="pay" jdbcType="DOUBLE" property="pay" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="serviceTime" jdbcType="TIMESTAMP" property="servicetime" />
+    <result column="serviceEvalution" jdbcType="VARCHAR" property="serviceevalution" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rescueID, userID, shopID, orderID, problemDespribe, address, pay, startTime, serviceTime, 
+    serviceEvalution
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rescueinfo
+    where rescueID = #{rescueid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rescueinfo
+    where rescueID = #{rescueid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.RescueInfo">
+    insert into rescueinfo (rescueID, userID, shopID, 
+      orderID, problemDespribe, address, 
+      pay, startTime, serviceTime, 
+      serviceEvalution)
+    values (#{rescueid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{shopid,jdbcType=INTEGER}, 
+      #{orderid,jdbcType=INTEGER}, #{problemdespribe,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{pay,jdbcType=DOUBLE}, #{starttime,jdbcType=TIMESTAMP}, #{servicetime,jdbcType=TIMESTAMP}, 
+      #{serviceevalution,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.RescueInfo">
+    insert into rescueinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rescueid != null">
+        rescueID,
+      </if>
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="shopid != null">
+        shopID,
+      </if>
+      <if test="orderid != null">
+        orderID,
+      </if>
+      <if test="problemdespribe != null">
+        problemDespribe,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="pay != null">
+        pay,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="servicetime != null">
+        serviceTime,
+      </if>
+      <if test="serviceevalution != null">
+        serviceEvalution,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rescueid != null">
+        #{rescueid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="problemdespribe != null">
+        #{problemdespribe,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="pay != null">
+        #{pay,jdbcType=DOUBLE},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="servicetime != null">
+        #{servicetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceevalution != null">
+        #{serviceevalution,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.RescueInfo">
+    update rescueinfo
+    <set>
+      <if test="userid != null">
+        userID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null">
+        shopID = #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null">
+        orderID = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="problemdespribe != null">
+        problemDespribe = #{problemdespribe,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="pay != null">
+        pay = #{pay,jdbcType=DOUBLE},
+      </if>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="servicetime != null">
+        serviceTime = #{servicetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceevalution != null">
+        serviceEvalution = #{serviceevalution,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rescueID = #{rescueid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.RescueInfo">
+    update rescueinfo
+    set userID = #{userid,jdbcType=INTEGER},
+      shopID = #{shopid,jdbcType=INTEGER},
+      orderID = #{orderid,jdbcType=INTEGER},
+      problemDespribe = #{problemdespribe,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      pay = #{pay,jdbcType=DOUBLE},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      serviceTime = #{servicetime,jdbcType=TIMESTAMP},
+      serviceEvalution = #{serviceevalution,jdbcType=VARCHAR}
+    where rescueID = #{rescueid,jdbcType=INTEGER}
+  </update>
+</mapper>
