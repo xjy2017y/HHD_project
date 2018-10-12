@@ -47,7 +47,7 @@ public class UserServiceImpl implements IUserService {
 			JSONObject id = new JSONObject();
 			id.put("userid", resultInt);
 			result.put("status", 1);
-			result.put("result", id);
+			result.put("result", session.getId());
 		}else{
 			result.put("status", 0);		//账号已存在
 			result.put("result", null);
@@ -103,11 +103,12 @@ public class UserServiceImpl implements IUserService {
 				userInfo.setConlogindays(1);			//如果不是连续登录，则累积天数清零
 				userInfo.setCumlogindays(userInfo.getCumlogindays()+1);	//总登录天数加1
 			}
-			userInfo.setLastlogintime(new Timestamp(System.currentTimeMillis()));		//修改上次登录时间
-			userMapper.updateByPrimaryKeySelective(userInfo);
-			JSONObject userJson = (JSONObject) JSONObject.toJSON(userInfo);
 			HttpSession sesstion = req.getSession();
 			sesstion.setAttribute("username",assPhone);
+			userInfo.setLastlogintime(new Timestamp(System.currentTimeMillis()));		//修改上次登录时间
+			userMapper.updateByPrimaryKeySelective(userInfo);
+			userInfo.setSessionId(sesstion.getId());
+			JSONObject userJson = (JSONObject) JSONObject.toJSON(userInfo);
 			result.put("status", 1);			//user不存在
 			result.put("result", userJson);
 		}else{
