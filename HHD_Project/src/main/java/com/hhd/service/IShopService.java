@@ -15,4 +15,5 @@ public interface IShopService {
 
 	JSONObject queryShopByInfo(String describe);
 
+    JSONObject queryShopByUser(int page, int pageSize, int userID);
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,7 +34,7 @@ import com.hhd.tools.Tools;
 @RequestMapping("/shop")
 public class ShopController {
 
-	private String REPOSITORY_PATH;
+	private String REPOSITORY_PATH = "home/hhd/images";
 	
 	@Resource
 	private IShopService shopService;
@@ -51,8 +52,9 @@ public class ShopController {
 			@RequestParam("uploadPic") MultipartFile[] uploadFile,
 			HttpServletRequest request, HttpServletResponse response) {
 		Tools.ip2log(request);					//将访问者IP写入log 
-		REPOSITORY_PATH = request.getSession().getServletContext()
-				.getRealPath("upload");
+//		REPOSITORY_PATH = request.getSession().getServletContext()
+//				.getRealPath("upload");
+		System.out.println(REPOSITORY_PATH);
 		MultipartFile multipartFile = null;
 		String json = request.getParameter("shopInfo");
 		System.out.println(json);
@@ -114,8 +116,21 @@ public class ShopController {
 		JSONObject result = shopService.checkShop(page,pageSize,superiorID);
 		Tools.writerToAndroid(response, result);
 	}
-	
-	
+
+	/**
+	 * 查找该用户旗下所有商店，page是页数，pagesize是每一页显示的数据
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/queryShopByUser")
+	public void queryShopByUser(HttpServletRequest request,HttpServletResponse response){
+		Tools.ip2log(request);
+		int page = Integer.valueOf(request.getParameter("page"));
+		int pageSize = Integer.valueOf(request.getParameter("pageSize"));
+		int userID = Integer.valueOf(request.getParameter("userID"));
+		JSONObject result = shopService.queryShopByUser(page,pageSize,userID);
+		Tools.writerToAndroid(response,result);
+	}
 	@RequestMapping("/queryAllShop")
 	public void queryAllShop(HttpServletRequest request,HttpServletResponse response){
 		Tools.ip2log(request);					//将访问者IP写入log 

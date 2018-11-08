@@ -63,6 +63,23 @@ public class ShopServiceImpl implements IShopService{
 		return result;
 	}
 
+
+	public JSONObject queryShopByUser(int page, int pageSize, int userID) {
+		JSONObject result = new JSONObject();
+			List<Shop> shopInfo = shopMapper.queryShopByUser(userID,(page-1)*pageSize,pageSize);
+			System.out.println(shopInfo.size());
+			if (shopInfo.size() > 0){
+				result.put("status",1);
+				result.put("result",shopInfo);
+			}else {
+				result.put("result", null);
+				result.put("status", 0);
+			}
+		return result;
+	}
+
+
+
 	public JSONObject queryAllShop(int page, int pageSize) {
 		// TODO Auto-generated method stub
 		JSONObject result = new JSONObject();

@@ -63,14 +63,16 @@
     </servlet>  
 	<servlet-mapping>			
         <servlet-name>SpringMVC</servlet-name>  
-        <url-pattern>/</url-pattern>  
+        <url-pattern>/</url-pattern>
     </servlet-mapping>  
-    <servlet-mapping>		<!-- 不在SpringMVC处理范围的用默认的servlet处理，比如静态资源 -->
-    	<servlet-name>default</servlet-name>
-    	<url-pattern>/upload/*</url-pattern>
-	</servlet-mapping>
+    <!--<servlet-mapping>		&lt;!&ndash; 不在SpringMVC处理范围的用默认的servlet处理，比如静态资源 &ndash;&gt;-->
+    	<!--<servlet-name>default</servlet-name>-->
+    	<!--<url-pattern>/upload/*</url-pattern>-->
+	<!--</servlet-mapping>-->
     <welcome-file-list>  
         <welcome-file>/index.jsp</welcome-file>  
-    </welcome-file-list>  
-  
+    </welcome-file-list>
+    <session-config>
+        <session-timeout>10080</session-timeout>
+    </session-config>
 </web-app>  

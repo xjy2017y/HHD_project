@@ -29,4 +29,6 @@ public interface ShopMapper {
 	List<Shop> queryAllShop();
 
 	List<Shop> queryByInfo(String describe);
+
+    List<Shop> queryShopByUser(@Param("userID")int userID,@Param("page")int page,@Param("pageSize")int pageSize);
 }

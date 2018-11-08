@@ -23,11 +23,13 @@
 	<select id="queryByInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select * from shop where describeInfo like #{describe}
 	</select>
-	
+	<select id="queryShopByUser" resultMap="BaseResultMap" >
+		select * from shop where userID = #{userID} limit #{page},#{pageSize}
+	</select>
 	<select id="queryAllShop" resultMap="BaseResultMap">
 		select * from shop
 	</select>
-	<select id="queryAllShopLimit" resultMap="BaseResultMap">
+	<select id="queryAllShopLimit" resultMap="BaseResultMap" >
 		select * from shop limit #{page},#{pageSize}
 	</select>
 	<select id="queryShopBysuperiorIDAndState" resultMap="BaseResultMap">
