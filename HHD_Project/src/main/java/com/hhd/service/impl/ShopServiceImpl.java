@@ -69,6 +69,10 @@ public class ShopServiceImpl implements IShopService{
 			List<Shop> shopInfo = shopMapper.queryShopByUser(userID,(page-1)*pageSize,pageSize);
 			System.out.println(shopInfo.size());
 			if (shopInfo.size() > 0){
+				for(int i = 0;i<shopInfo.size();i++){
+					List<String> shopPic = picMapper.selectByShopID(shopInfo.get(i).getShopid());
+					shopInfo.get(i).setPictureAddress(shopPic);
+				}
 				result.put("status",1);
 				result.put("result",shopInfo);
 			}else {
