@@ -34,8 +34,8 @@ import com.hhd.tools.Tools;
 @RequestMapping("/shop")
 public class ShopController {
 
-	private String REPOSITORY_PATH = "home/hhd/images";
-	
+	private String REPOSITORY_PATH = "/home/root/images";
+	//private String REPOSITORY_PATH = "D:/cangku";
 	@Resource
 	private IShopService shopService;
 	// 允许上传的格式

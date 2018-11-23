@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="HHD_Project:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="HHD_Project-0.0.1-SNAPSHOT.war">
+    <root id="archive" name="HHD_Project.war">
       <element id="artifact" artifact-name="HHD_Project:war exploded" />
     </root>
   </artifact>

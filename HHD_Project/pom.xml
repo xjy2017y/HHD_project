@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.30</version>
+			<version>8.0.11</version><!--5.1.30-->
 		</dependency>
 		<!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
 		<dependency>
@@ -179,6 +179,7 @@
 		
 	</dependencies>
 	<build>
+		<finalName>${groupId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
