@@ -49,7 +49,7 @@ public class CarInfoController {
 	public void querySeriesByBrand(HttpServletRequest request,HttpServletResponse response){
 		Tools.ip2log(request);
 		String brand = request.getParameter("brand");
-		brand = Tools.transcoding(brand);
+		//brand = Tools.transcoding(brand);
 		Logger log = Logger.getLogger(CarInfoController.class);
 		log.info("brand is:"+ brand);
 		System.out.println(brand);
@@ -66,7 +66,7 @@ public class CarInfoController {
 	public void queryCarInfoBySeries(HttpServletRequest request,HttpServletResponse response){
 		Tools.ip2log(request);
 		String series = request.getParameter("series");
-		series = Tools.transcoding(series);
+		//series = Tools.transcoding(series);
 		System.out.println(series);
 		JSONObject result = service.queryCarInfoBySeries(series);
 		Tools.writerToAndroid(response, result);

@@ -12,10 +12,11 @@
     <result column="carState" jdbcType="INTEGER" property="carstate" />
     <result column="carRentCount" jdbcType="INTEGER" property="carrentcount" />
     <result column="insuranceType" jdbcType="INTEGER" property="insurancetype" />
+    <result column="model" jdbcType="INTEGER" property="model"/>
   </resultMap>
   <sql id="Base_Column_List">
     garageID, userID, vechiclesID, carAddress, carNum, vehicleINum, engineNum, carState, 
-    carRentCount, insuranceType
+    carRentCount, insuranceType,model
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -44,11 +45,11 @@
     insert into garage (garageID, userID, vechiclesID, 
       carAddress, carNum, vehicleINum, 
       engineNum, carState, carRentCount, 
-      insuranceType)
+      insuranceType,model)
     values (#{garageid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{vechiclesid,jdbcType=INTEGER}, 
       #{caraddress,jdbcType=VARCHAR}, #{carnum,jdbcType=VARCHAR}, #{vehicleinum,jdbcType=VARCHAR}, 
       #{enginenum,jdbcType=VARCHAR}, #{carstate,jdbcType=INTEGER}, #{carrentcount,jdbcType=INTEGER}, 
-      #{insurancetype,jdbcType=INTEGER})
+      #{insurancetype,jdbcType=INTEGER},#{model})
   </insert>
   <insert id="insertSelective" parameterType="com.hhd.pojo.Garage">
     insert into garage
@@ -83,6 +84,9 @@
       <if test="insurancetype != null">
         insuranceType,
       </if>
+      <if test="model != null">
+        model,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="garageid != null">
@@ -115,6 +119,9 @@
       <if test="insurancetype != null">
         #{insurancetype,jdbcType=INTEGER},
       </if>
+      <if test="model != null">
+      #{model,jdbcType=INTEGER},
+    </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.Garage">
@@ -147,6 +154,9 @@
       <if test="insurancetype != null">
         insuranceType = #{insurancetype,jdbcType=INTEGER},
       </if>
+      <if test="model != null">
+        model = #{model,jdbcType=INTEGER},
+      </if>
     </set>
     where garageID = #{garageid,jdbcType=INTEGER}
   </update>
@@ -160,7 +170,8 @@
       engineNum = #{enginenum,jdbcType=VARCHAR},
       carState = #{carstate,jdbcType=INTEGER},
       carRentCount = #{carrentcount,jdbcType=INTEGER},
-      insuranceType = #{insurancetype,jdbcType=INTEGER}
+      insuranceType = #{insurancetype,jdbcType=INTEGER},
+      model = #{model}
     where garageID = #{garageid,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -21,6 +21,8 @@ public class Garage {
 
     private Integer insurancetype = 0;
 
+    private String model;
+
     public Integer getGarageid() {
         return garageid;
     }
@@ -99,5 +101,13 @@ public class Garage {
 
     public void setInsurancetype(Integer insurancetype) {
         this.insurancetype = insurancetype;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 }
