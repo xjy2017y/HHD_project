@@ -2,6 +2,7 @@ package com.hhd.dao;
 
 import java.util.List;
 
+import com.hhd.pojo.CarInfo;
 import com.hhd.pojo.Garage;
 
 public interface GarageMapper {
@@ -16,12 +17,14 @@ public interface GarageMapper {
     int updateByPrimaryKeySelective(Garage record);
 
     int updateByPrimaryKey(Garage record);
-    
-    List<Garage> selectByUserID(Integer userID);
     /**
      * 根据车牌号搜索车辆
-     * @param carNum
+     * @param vechicleNum
      * @return
      */
+    List<CarInfo> selectByvehicleINum(String vechicleNum);
+    
+    List<Garage> selectByUserID(Integer userID);
+
     Garage selectByCarNum(String carNum);
 }

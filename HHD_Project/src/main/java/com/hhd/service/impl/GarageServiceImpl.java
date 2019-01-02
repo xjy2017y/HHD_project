@@ -58,13 +58,13 @@ public class GarageServiceImpl implements IGarageService {
 		Garage car = JSONObject.parseObject(carInfo, Garage.class);
 		JSONObject result = new JSONObject();
 		try {
-			Garage ifExist = garageMapper.selectByCarNum(car.getCarnum());		//如果数据库里没有相应的记录则添加
-			if(ifExist == null){
+			List ifExist = garageMapper.selectByvehicleINum(car.getVehicleinum());		//如果数据库里没有相应的记录则添加
+			if(ifExist.size() == 0){
 				garageMapper.insertSelective(car);
 				result.put("result", null);
 				result.put("status", 1);
 			}else{
-				result.put("result", null);
+				result.put("result", "double vehicleNum!!");
 				result.put("status", 0);
 			}
 			return result;

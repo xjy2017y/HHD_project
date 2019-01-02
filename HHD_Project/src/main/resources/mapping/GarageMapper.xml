@@ -36,6 +36,11 @@
   from garage
   where carNum = #{carNum}
   </select>
+  <select id="selectByvehicleINum" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from garage WHERE vehicleinum = #{vehicleINum}
+  </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from garage
