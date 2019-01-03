@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.CarLinkTyreInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.CarLinkTyreInfo">
+    <id column="linkedID" jdbcType="INTEGER" property="linkedid" />
+    <result column="garageID" jdbcType="INTEGER" property="garageid" />
+    <result column="tyreID" jdbcType="INTEGER" property="tyreid" />
+    <result column="tyrePosition" jdbcType="INTEGER" property="tyreposition" />
+    <result column="tyreAlertUpper" jdbcType="DOUBLE" property="tyrealertupper" />
+    <result column="tyreAlertLower" jdbcType="DOUBLE" property="tyrealertlower" />
+    <result column="mileage" jdbcType="DOUBLE" property="mileage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    linkedID, garageID, tyreID, tyrePosition, tyreAlertUpper, tyreAlertLower, mileage
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from carlinktyreinfo
+    where linkedID = #{linkedid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByGarageIDAndPosition" parameterType="com.hhd.pojo.CarLinkTyreInfo" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List"/>
+  from carlinktyreinfo
+  where garageID = #{garageid} and tyrePosition =#{tyreposition}
+  </select>
+  <select id="selectByGarageID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from carlinktyreinfo
+    where garageID = #{garageID,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from carlinktyreinfo
+    where linkedID = #{linkedid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.CarLinkTyreInfo">
+    insert into carlinktyreinfo (linkedID, garageID, tyreID, 
+      tyrePosition, tyreAlertUpper, tyreAlertLower, 
+      mileage)
+    values (#{linkedid,jdbcType=INTEGER}, #{garageid,jdbcType=INTEGER}, #{tyreid,jdbcType=INTEGER}, 
+      #{tyreposition,jdbcType=INTEGER}, #{tyrealertupper,jdbcType=DOUBLE}, #{tyrealertlower,jdbcType=DOUBLE}, 
+      #{mileage,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.CarLinkTyreInfo">
+    insert into carlinktyreinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="linkedid != null">
+        linkedID,
+      </if>
+      <if test="garageid != null">
+        garageID,
+      </if>
+      <if test="tyreid != null">
+        tyreID,
+      </if>
+      <if test="tyreposition != null">
+        tyrePosition,
+      </if>
+      <if test="tyrealertupper != null">
+        tyreAlertUpper,
+      </if>
+      <if test="tyrealertlower != null">
+        tyreAlertLower,
+      </if>
+      <if test="mileage != null">
+        mileage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="linkedid != null">
+        #{linkedid,jdbcType=INTEGER},
+      </if>
+      <if test="garageid != null">
+        #{garageid,jdbcType=INTEGER},
+      </if>
+      <if test="tyreid != null">
+        #{tyreid,jdbcType=INTEGER},
+      </if>
+      <if test="tyreposition != null">
+        #{tyreposition,jdbcType=INTEGER},
+      </if>
+      <if test="tyrealertupper != null">
+        #{tyrealertupper,jdbcType=DOUBLE},
+      </if>
+      <if test="tyrealertlower != null">
+        #{tyrealertlower,jdbcType=DOUBLE},
+      </if>
+      <if test="mileage != null">
+        #{mileage,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.CarLinkTyreInfo">
+    update carlinktyreinfo
+    <set>
+      <if test="garageid != null">
+        garageID = #{garageid,jdbcType=INTEGER},
+      </if>
+      <if test="tyreid != null">
+        tyreID = #{tyreid,jdbcType=INTEGER},
+      </if>
+      <if test="tyreposition != null">
+        tyrePosition = #{tyreposition,jdbcType=INTEGER},
+      </if>
+      <if test="tyrealertupper != null">
+        tyreAlertUpper = #{tyrealertupper,jdbcType=DOUBLE},
+      </if>
+      <if test="tyrealertlower != null">
+        tyreAlertLower = #{tyrealertlower,jdbcType=DOUBLE},
+      </if>
+      <if test="mileage != null">
+        mileage = #{mileage,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where linkedID = #{linkedid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.CarLinkTyreInfo">
+    update carlinktyreinfo
+    set garageID = #{garageid,jdbcType=INTEGER},
+      tyreID = #{tyreid,jdbcType=INTEGER},
+      tyrePosition = #{tyreposition,jdbcType=INTEGER},
+      tyreAlertUpper = #{tyrealertupper,jdbcType=DOUBLE},
+      tyreAlertLower = #{tyrealertlower,jdbcType=DOUBLE},
+      mileage = #{mileage,jdbcType=DOUBLE}
+    where linkedID = #{linkedid,jdbcType=INTEGER}
+  </update>
+</mapper>

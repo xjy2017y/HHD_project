@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.CarInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.CarInfo">
+    <id column="vechiclesID" jdbcType="INTEGER" property="vechiclesid" />
+    <result column="series" jdbcType="VARCHAR" property="series" />
+    <result column="brand" jdbcType="VARCHAR" property="brand" />
+    <result column="carType" jdbcType="VARCHAR" property="cartype" />
+    <result column="peopleNum" jdbcType="VARCHAR" property="peoplenum" />
+    <result column="marketTime" jdbcType="VARCHAR" property="markettime" />
+    <result column="engine" jdbcType="VARCHAR" property="engine" />
+    <result column="displacement" jdbcType="VARCHAR" property="displacement" />
+    <result column="first_latter" jdbcType="VARCHAR" property="firstLatter" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    vechiclesID, series, brand, carType, peopleNum, marketTime, engine, displacement, 
+    first_latter, model
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from carinfo
+    where vechiclesID = #{vechiclesid,jdbcType=INTEGER}
+  </select>
+  <select id="selectCarInfoBySeries" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from carinfo
+  where series like #{series}
+  </select>
+  <select id="selectBrandByLatter" parameterType="java.lang.String" resultType="java.lang.String">
+  select brand from carinfo where first_latter = #{latter} group by brand
+  </select>
+  <select id="selectSeriesByBrand" parameterType="java.lang.String" resultType="java.lang.String">
+  select series from carinfo where brand like #{brand } group by series
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from carinfo
+    where vechiclesID = #{vechiclesid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.CarInfo">
+    insert into carinfo (vechiclesID, series, brand, 
+      carType, peopleNum, marketTime, 
+      engine, displacement, first_latter, 
+      model)
+    values (#{vechiclesid,jdbcType=INTEGER}, #{series,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{cartype,jdbcType=VARCHAR}, #{peoplenum,jdbcType=VARCHAR}, #{markettime,jdbcType=VARCHAR}, 
+      #{engine,jdbcType=VARCHAR}, #{displacement,jdbcType=VARCHAR}, #{firstLatter,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.CarInfo">
+    insert into carinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vechiclesid != null">
+        vechiclesID,
+      </if>
+      <if test="series != null">
+        series,
+      </if>
+      <if test="brand != null">
+        brand,
+      </if>
+      <if test="cartype != null">
+        carType,
+      </if>
+      <if test="peoplenum != null">
+        peopleNum,
+      </if>
+      <if test="markettime != null">
+        marketTime,
+      </if>
+      <if test="engine != null">
+        engine,
+      </if>
+      <if test="displacement != null">
+        displacement,
+      </if>
+      <if test="firstLatter != null">
+        first_latter,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vechiclesid != null">
+        #{vechiclesid,jdbcType=INTEGER},
+      </if>
+      <if test="series != null">
+        #{series,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="cartype != null">
+        #{cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="peoplenum != null">
+        #{peoplenum,jdbcType=VARCHAR},
+      </if>
+      <if test="markettime != null">
+        #{markettime,jdbcType=VARCHAR},
+      </if>
+      <if test="engine != null">
+        #{engine,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null">
+        #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="firstLatter != null">
+        #{firstLatter,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.CarInfo">
+    update carinfo
+    <set>
+      <if test="series != null">
+        series = #{series,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="cartype != null">
+        carType = #{cartype,jdbcType=VARCHAR},
+      </if>
+      <if test="peoplenum != null">
+        peopleNum = #{peoplenum,jdbcType=VARCHAR},
+      </if>
+      <if test="markettime != null">
+        marketTime = #{markettime,jdbcType=VARCHAR},
+      </if>
+      <if test="engine != null">
+        engine = #{engine,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null">
+        displacement = #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="firstLatter != null">
+        first_latter = #{firstLatter,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where vechiclesID = #{vechiclesid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.CarInfo">
+    update carinfo
+    set series = #{series,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      carType = #{cartype,jdbcType=VARCHAR},
+      peopleNum = #{peoplenum,jdbcType=VARCHAR},
+      marketTime = #{markettime,jdbcType=VARCHAR},
+      engine = #{engine,jdbcType=VARCHAR},
+      displacement = #{displacement,jdbcType=VARCHAR},
+      first_latter = #{firstLatter,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR}
+    where vechiclesID = #{vechiclesid,jdbcType=INTEGER}
+  </update>
+</mapper>

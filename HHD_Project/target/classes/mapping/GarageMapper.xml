@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhd.dao.GarageMapper">
+  <resultMap id="BaseResultMap" type="com.hhd.pojo.Garage">
+    <id column="garageID" jdbcType="INTEGER" property="garageid" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="vechiclesID" jdbcType="INTEGER" property="vechiclesid" />
+    <result column="carAddress" jdbcType="VARCHAR" property="caraddress" />
+    <result column="carNum" jdbcType="VARCHAR" property="carnum" />
+    <result column="vehicleINum" jdbcType="VARCHAR" property="vehicleinum" />
+    <result column="engineNum" jdbcType="VARCHAR" property="enginenum" />
+    <result column="carState" jdbcType="INTEGER" property="carstate" />
+    <result column="carRentCount" jdbcType="INTEGER" property="carrentcount" />
+    <result column="insuranceType" jdbcType="INTEGER" property="insurancetype" />
+    <result column="model" jdbcType="INTEGER" property="model"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    garageID, userID, vechiclesID, carAddress, carNum, vehicleINum, engineNum, carState, 
+    carRentCount, insuranceType,model
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from garage
+    where garageID = #{garageid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List"></include>
+  	from garage
+  	where userID = #{userID}
+  </select>
+  <select id="selectByCarNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List"></include>
+  from garage
+  where carNum = #{carNum}
+  </select>
+  <select id="selectByvehicleINum" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from garage WHERE vehicleinum = #{vehicleINum}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from garage
+    where garageID = #{garageid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hhd.pojo.Garage">
+    insert into garage (garageID, userID, vechiclesID, 
+      carAddress, carNum, vehicleINum, 
+      engineNum, carState, carRentCount, 
+      insuranceType,model)
+    values (#{garageid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{vechiclesid,jdbcType=INTEGER}, 
+      #{caraddress,jdbcType=VARCHAR}, #{carnum,jdbcType=VARCHAR}, #{vehicleinum,jdbcType=VARCHAR}, 
+      #{enginenum,jdbcType=VARCHAR}, #{carstate,jdbcType=INTEGER}, #{carrentcount,jdbcType=INTEGER}, 
+      #{insurancetype,jdbcType=INTEGER},#{model})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hhd.pojo.Garage">
+    insert into garage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="garageid != null">
+        garageID,
+      </if>
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="vechiclesid != null">
+        vechiclesID,
+      </if>
+      <if test="caraddress != null">
+        carAddress,
+      </if>
+      <if test="carnum != null">
+        carNum,
+      </if>
+      <if test="vehicleinum != null">
+        vehicleINum,
+      </if>
+      <if test="enginenum != null">
+        engineNum,
+      </if>
+      <if test="carstate != null">
+        carState,
+      </if>
+      <if test="carrentcount != null">
+        carRentCount,
+      </if>
+      <if test="insurancetype != null">
+        insuranceType,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="garageid != null">
+        #{garageid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="vechiclesid != null">
+        #{vechiclesid,jdbcType=INTEGER},
+      </if>
+      <if test="caraddress != null">
+        #{caraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="carnum != null">
+        #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleinum != null">
+        #{vehicleinum,jdbcType=VARCHAR},
+      </if>
+      <if test="enginenum != null">
+        #{enginenum,jdbcType=VARCHAR},
+      </if>
+      <if test="carstate != null">
+        #{carstate,jdbcType=INTEGER},
+      </if>
+      <if test="carrentcount != null">
+        #{carrentcount,jdbcType=INTEGER},
+      </if>
+      <if test="insurancetype != null">
+        #{insurancetype,jdbcType=INTEGER},
+      </if>
+      <if test="model != null">
+      #{model,jdbcType=INTEGER},
+    </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hhd.pojo.Garage">
+    update garage
+    <set>
+      <if test="userid != null">
+        userID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="vechiclesid != null">
+        vechiclesID = #{vechiclesid,jdbcType=INTEGER},
+      </if>
+      <if test="caraddress != null">
+        carAddress = #{caraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="carnum != null">
+        carNum = #{carnum,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleinum != null">
+        vehicleINum = #{vehicleinum,jdbcType=VARCHAR},
+      </if>
+      <if test="enginenum != null">
+        engineNum = #{enginenum,jdbcType=VARCHAR},
+      </if>
+      <if test="carstate != null">
+        carState = #{carstate,jdbcType=INTEGER},
+      </if>
+      <if test="carrentcount != null">
+        carRentCount = #{carrentcount,jdbcType=INTEGER},
+      </if>
+      <if test="insurancetype != null">
+        insuranceType = #{insurancetype,jdbcType=INTEGER},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=INTEGER},
+      </if>
+    </set>
+    where garageID = #{garageid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hhd.pojo.Garage">
+    update garage
+    set userID = #{userid,jdbcType=INTEGER},
+      vechiclesID = #{vechiclesid,jdbcType=INTEGER},
+      carAddress = #{caraddress,jdbcType=VARCHAR},
+      carNum = #{carnum,jdbcType=VARCHAR},
+      vehicleINum = #{vehicleinum,jdbcType=VARCHAR},
+      engineNum = #{enginenum,jdbcType=VARCHAR},
+      carState = #{carstate,jdbcType=INTEGER},
+      carRentCount = #{carrentcount,jdbcType=INTEGER},
+      insuranceType = #{insurancetype,jdbcType=INTEGER},
+      model = #{model}
+    where garageID = #{garageid,jdbcType=INTEGER}
+  </update>
+</mapper>
